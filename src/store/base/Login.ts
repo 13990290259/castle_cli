@@ -1,10 +1,10 @@
 import { ActionContextBasic } from '../index';
-import { login, logout, relogin, getMyPermission } from '../../api/Users';
 import router from '../../router'
 import { findIndex, isFunction } from 'lodash'
-import { subscribe, QosType } from '../../api/mqtt';
-import { uuid } from '../../utils/index';
 import { Permission, Topic } from '../../config';
+import { get_uuid } from 'castle-utils';
+import { subscribe, QosType } from 'castle-mqtt'
+import UserApi from '../api/User'
 export const G_UID = 'G_UID';
 export const G_UUID = 'G_UUID';
 export const G_STORE_ID = 'G_STORE_ID';
@@ -26,7 +26,7 @@ export const M_LOGOUT = 'M_LOGOUT'
 export const G_USER_PERMISSIONS = 'G_USER_PERMISSIONS';
 export const M_USER_PERMISSIONS = 'M_USER_PERMISSIONS';
 export const A_USER_PERMISSIONS = 'A_USER_PERMISSIONS';
-export const UUID = uuid();
+export const UUID = get_uuid();
 export interface State {
     UID: number,
     StoreID: number,
@@ -71,7 +71,6 @@ const getters = {
     },
     [G_UNIT]() { return state.Unit },
     [G_UUID]() {
-        if (state.UUID == '') { state.UUID = uuid() }
         return state.UUID
     },
     [G_USER_PERMISSIONS]() {
@@ -82,9 +81,9 @@ const actions = {
     [A_SELECT](context: ActionContextBasic) {
         //TODO 选择单位和库房
     },
-    [A_USER_PERMISSIONS](context: ActionContextBasic) {
+    async [A_USER_PERMISSIONS](context: ActionContextBasic) {
         //TODO 获取该用户的权限数据
-        let d = getMyPermission()
+        let d = await UserApi.getMyPermission()
         context.commit(M_USER_PERMISSIONS, d)
     },
     [A_LOGIN_SUCCESS](context: ActionContextBasic, Login: any) {
@@ -101,10 +100,10 @@ const actions = {
     [A_LOGOUT](context: ActionContextBasic) {
         context.commit(M_LOGOUT);
         context.commit(M_UNSELECT);
-        logout();
+        UserApi.logout();
     },
     async [A_RELOGIN](context: ActionContextBasic, { s, e }: { s: Function, e?: Function }) {
-        let d = relogin()
+        let d = await UserApi.relogin()
         if (d.UID && d.UID > 0) {
             context.dispatch(A_LOGIN_SUCCESS, d);
             if (isFunction(s)) {
