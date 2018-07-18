@@ -15,11 +15,15 @@ declare module "webStorage" {
   const a: any;
   export default a;
 }
-declare module "moment"{
-  const a:any;
+declare module "moment" {
+  const a: any;
   export default a;
 }
-declare module "hotkeys-js"{
-  const a:any;
+declare module "castle-ui" {
+  const a: any;
+  export default a;
+}
+declare module "hotkeys-js" {
+  const a: any;
   export default a;
 }

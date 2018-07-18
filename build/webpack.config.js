@@ -3,17 +3,18 @@ const path = require('path')
 // const vueLoaderConfig = require('./vue-loader.conf')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
 
 
-module.exports={
+module.exports = {
     entry: {
-        'app':'./src/main.ts'
+        'app': './src/main.ts'
     },
     resolve: {
-        extensions: [' ','.ts','.vue','.json','.js','.scss','.css'],
+        extensions: [' ', '.ts', '.vue', '.json', '.js', '.scss', '.css'],
         alias: {
             vue$: 'vue/dist/vue.esm.js',
             '@': resolve('src'),
@@ -28,21 +29,19 @@ module.exports={
         publicPath: "/"
     },
     watchOptions: {
-        ignored:/node_modules/,
-        aggregateTimeout:300,
-        poll:1300
+        ignored: /node_modules/,
+        aggregateTimeout: 300,
+        poll: 1300
     },
     plugins: [
         new webpack.ProvidePlugin({
-            $: 'jquery',
             jQuery: 'jquery',
             "windows.jQuery": 'jquery',
         }),
         new VueLoaderPlugin(),
     ],
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.ts$/,
                 loader: 'tslint-loader',
                 enforce: 'pre',
@@ -58,10 +57,10 @@ module.exports={
             },
             {
                 test: /\.css$/,
-                use:[
-                    process.env.NODE_ENV !== 'production'
-                        ? 'vue-style-loader'
-                        : MiniCssExtractPlugin.loader,
+                use: [
+                    process.env.NODE_ENV !== 'production' ?
+                    'vue-style-loader' :
+                    MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
             },

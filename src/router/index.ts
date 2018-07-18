@@ -4,7 +4,7 @@ import store from '../store'
 // import webStorage from 'webStorage'
 import { A_RELOGIN } from '../store/base/Login'
 Vue.use(Router)
-
+declare let require: any;
 export enum RouterPath {
     Login = '/'
 }
@@ -14,7 +14,7 @@ const router = new Router({
             path: RouterPath.Login,
             name: '登录',
             component: r =>
-                require(["../users/Login.vue"], r),
+                require(["../user/Login.vue"], r),
             meta: {
             }
         },
