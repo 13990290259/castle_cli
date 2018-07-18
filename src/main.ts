@@ -5,13 +5,11 @@ import App from './App.vue'
 import store from './store'
 import router from './router/index'
 import UI from 'castle-ui'
-import iconfont from './base/iconfont.vue'
-import editable from './base/editable.vue'
 import './assets/css/common.css'
 Vue.config.productionTip = true
-Vue.component('iconfont', iconfont)
-Vue.component('editable', editable)
-Vue.use(UI)
+Vue.use(UI, {
+  server: 'http://cdn3.tansuyun.cn/'
+})
 /* eslint-disable no-new */
 const app = new Vue({
   el: '#app',

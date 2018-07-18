@@ -13,8 +13,8 @@ const router = new Router({
         {
             path: RouterPath.Login,
             name: '登录',
-            component: resolve =>
-                require(["../users/Login.vue"], resolve),
+            component: r =>
+                require(["../users/Login.vue"], r),
             meta: {
             }
         },

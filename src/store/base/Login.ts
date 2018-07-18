@@ -3,8 +3,9 @@ import router from '../../router'
 import { findIndex, isFunction } from 'lodash'
 import { Permission, Topic } from '../../config';
 import { get_uuid } from 'castle-utils';
-import { subscribe, QosType } from 'castle-mqtt'
-import UserApi from '../api/User'
+import { QosType } from 'castle-mqtt'
+import mqtt from '../../api/Mqtt'
+import UserApi from '../../api/User'
 export const G_UID = 'G_UID';
 export const G_UUID = 'G_UUID';
 export const G_STORE_ID = 'G_STORE_ID';
@@ -90,10 +91,10 @@ const actions = {
         // login(login.Account, login.PWD, (d: any) => { }, )
         context.commit(M_UID, Login.UID)
         context.commit(M_USER, Login)
-        subscribe(Topic.UserByUID + Login.UID, QosType.LESS_ONE, (d: any, uuid: string) => {
+        mqtt.subscribe(Topic.UserByUID + Login.UID, QosType.LESS_ONE, (data) => {
 
         })
-        subscribe(Topic.UserPermissionByUID + Login.UID, QosType.LESS_ONE, () => {
+        mqtt.subscribe(Topic.UserPermissionByUID + Login.UID, QosType.LESS_ONE, () => {
             context.dispatch(A_USER_PERMISSIONS)
         })
     },
@@ -103,7 +104,7 @@ const actions = {
         UserApi.logout();
     },
     async [A_RELOGIN](context: ActionContextBasic, { s, e }: { s: Function, e?: Function }) {
-        let d = await UserApi.relogin()
+        let d: any = await UserApi.relogin()
         if (d.UID && d.UID > 0) {
             context.dispatch(A_LOGIN_SUCCESS, d);
             if (isFunction(s)) {

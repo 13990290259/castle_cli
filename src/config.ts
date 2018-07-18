@@ -1,3 +1,5 @@
+import { set_server } from "../node_modules/castle-request";
+
 const config = {
     HttpServer: '',
     MqttServer: '',
@@ -11,4 +13,5 @@ export const Topic = {
 export const Permission = {
 
 }
+set_server(config.HttpServer)
 export default config;
