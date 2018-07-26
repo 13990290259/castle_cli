@@ -21,7 +21,7 @@ export const G_{__UPPER_MODULE_NAME__} = 'G_{__UPPER_MODULE_NAME__}'
 
 const isDic = false;
 //对象结构
-export interface {__MODULE_NAME__} Object {
+export interface {__MODULE_NAME__}Object {
     //字段:类型
     {__FIELDS__}
 }
