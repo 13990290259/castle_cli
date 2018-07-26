@@ -28,7 +28,7 @@ export interface {__MODULE_NAME__} Object {
 //空对象
 export const Empty{__MODULE_NAME__}: {__MODULE_NAME__}Object = {
     //字段:初始值
-{__EMPTY__}
+    {__EMPTY__}
 }
 //State存储库结构
 export interface State {
@@ -55,47 +55,47 @@ const state: State = {
 const getters = {
     [G_{__UPPER_MODULE_NAME__}_ALL]() {
         if (state.All.length == 0 && isDic) {
-    store.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
-}
-return state.All;
+            store.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
+        }
+        return state.All;
     },
-[G_{__UPPER_MODULE_NAME__}]() {
-    return state.Result;
-}
+    [G_{__UPPER_MODULE_NAME__}]() {
+        return state.Result;
+    }
 }
 //定义actions
 const actions = {
     // 处理搜索请求
     async [A_{__UPPER_MODULE_NAME__}_SEARCH](context: ActionContextBasic) {
         let d = await {__MODULE_NAME__}.search(state.Where)
-context.commit(M_{__UPPER_MODULE_NAME__} _SEARCH, d);
+        context.commit(M_{__UPPER_MODULE_NAME__}_SEARCH, d);
     },
-//取出所有的值，仅仅针对字典型，其它类型禁止使用
-async[A_{__UPPER_MODULE_NAME__} _ALL](context: ActionContextBasic) {
-    let d = await {__MODULE_NAME__}.search({ P: 1, N: 99999 })
-    context.commit(M_{__UPPER_MODULE_NAME__}_ALL, d.L);
-},
-    async[A_{__UPPER_MODULE_NAME__} _ADD](context: ActionContextBasic, { Data, s, e }: { Data: {__MODULE_NAME__}Object, s?: Function, e?: Function }) {
+    //取出所有的值，仅仅针对字典型，其它类型禁止使用
+    async [A_{__UPPER_MODULE_NAME__}_ALL](context: ActionContextBasic) {
+        let d = await {__MODULE_NAME__}.search({ P: 1, N: 99999 })
+        context.commit(M_{__UPPER_MODULE_NAME__}_ALL, d.L);
+    },
+    async [A_{__UPPER_MODULE_NAME__}_ADD](context: ActionContextBasic, { Data, s, e }: { Data: {__MODULE_NAME__}Object, s?: Function, e?: Function }) {
         let d = await {__MODULE_NAME__}.add(Data)
         if (d) { if (isFunction(s)) s() } else if (isFunction(e)) { e() }
         //更新列表
         context.dispatch(A_{__UPPER_MODULE_NAME__}_SEARCH)
         context.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
     },
-        async[A_{__UPPER_MODULE_NAME__} _SAVE](context: ActionContextBasic, { Data, s, e }: { Data: {__MODULE_NAME__}Object, s?: Function, e?: Function }) {
-            let d = await {__MODULE_NAME__}.save(Data.{__MODULE_NAME__} ID, Data)
-            if (d) { if (isFunction(s)) s() } else if (isFunction(e)) { e() }
-            //更新列表
-            context.dispatch(A_{__UPPER_MODULE_NAME__}_SEARCH)
-            context.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
-        },
-            async[A_{__UPPER_MODULE_NAME__} _DEL](context: ActionContextBasic, { {__MODULE_NAME__}ID, s, e }: { {__MODULE_NAME__}ID: number, s?: Function, e?: Function }) {
-                let d = await {__MODULE_NAME__}.del({__MODULE_NAME__}ID)
-                if (d) { if (isFunction(s)) s() } else if (isFunction(e)) { e() }
-                //更新列表
-                context.dispatch(A_{__UPPER_MODULE_NAME__}_SEARCH)
-                context.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
-            },
+    async [A_{__UPPER_MODULE_NAME__}_SAVE](context: ActionContextBasic, { Data, s, e }: { Data: {__MODULE_NAME__}Object, s?: Function, e?: Function }) {
+        let d = await {__MODULE_NAME__}.save(Data.__MODULE_PK__, Data)
+        if (d) { if (isFunction(s)) s() } else if (isFunction(e)) { e() }
+        //更新列表
+        context.dispatch(A_{__UPPER_MODULE_NAME__}_SEARCH)
+        context.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
+    },
+    async [A_{__UPPER_MODULE_NAME__}_DEL](context: ActionContextBasic, { {__MODULE_NAME__}ID, s, e }: { {__MODULE_NAME__}ID: number, s?: Function, e?: Function }) {
+        let d = await {__MODULE_NAME__}.del(__MODULE_PK__)
+        if (d) { if (isFunction(s)) s() } else if (isFunction(e)) { e() }
+        //更新列表
+        context.dispatch(A_{__UPPER_MODULE_NAME__}_SEARCH)
+        context.dispatch(A_{__UPPER_MODULE_NAME__}_ALL)
+    },
 };
 const mutations = {
     [M_{__UPPER_MODULE_NAME__}_SEARCH](state: State, SR: SearchResult) {
